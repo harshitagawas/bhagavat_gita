@@ -12,7 +12,20 @@
           "package_name": "com.example.bhagavad_gita"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "438619955742-24gehr58o9gsf7974hj1j14dsact1bos.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bhagavad_gita",
+            "certificate_hash": "a7677e2b1adbb989e4f9d78ab28d9521304ae2bc"
+          }
+        },
+        {
+          "client_id": "438619955742-ta1eafek41s8p56bs8mi90plum92eomk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCo1z3YZQWA4fp7eVm7rKXTBKCseTlg9sM"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438619955742-ta1eafek41s8p56bs8mi90plum92eomk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

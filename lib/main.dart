@@ -1,4 +1,6 @@
+import 'package:bhagavad_gita/components/auth_gate.dart';
 import 'package:bhagavad_gita/pages/home.dart';
+import 'package:bhagavad_gita/pages/login.dart';
 import 'package:bhagavad_gita/providers/language_provider.dart'; // ✅ Import your provider
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: AuthGate(),
       theme: ThemeData(
         primarySwatch: createMaterialColor(const Color(0xFFE88D2C)),
         appBarTheme: const AppBarTheme(

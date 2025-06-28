@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../pages/login.dart';
 import '../providers/language_provider.dart';
 
 
 class Bar extends StatelessWidget {
   final Widget child;
   const Bar({super.key, required this.child});
+
+  void _signOut(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => const LoginPage()),
+          (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +29,11 @@ class Bar extends StatelessWidget {
         title: const Text("BHAGAVAT GITA"),
         centerTitle: true,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Logout',
+            onPressed: () => _signOut(context),
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 12.0),
             child: DropdownButtonHideUnderline(
