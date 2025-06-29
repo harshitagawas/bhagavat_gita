@@ -1,3 +1,5 @@
+import 'package:bhagavad_gita/pages/otp_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../components/auth_service.dart';
@@ -12,6 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +37,40 @@ class _LoginPageState extends State<LoginPage> {
                 controller: controller,
               ),
               const SizedBox(height: 10),
-              ElevatedButton(onPressed: () {}, child: Text("Send OTP")),
+              ElevatedButton(
+                onPressed: () async {
+                  String phone = '+91${controller.text.trim()}';
+                  print("[DEBUG] 📲 Sending OTP to $phone");
+
+                  await FirebaseAuth.instance.verifyPhoneNumber(
+                    phoneNumber: phone,
+                    verificationCompleted: (PhoneAuthCredential credential) {
+                      print("[DEBUG] ✅ Auto-retrieval completed. Credential: $credential");
+                    },
+                    verificationFailed: (FirebaseAuthException ex) {
+                      print("[DEBUG] ❌ Verification failed: ${ex.code} - ${ex.message}");
+                      print("[DEBUG] Stacktrace: ${ex.stackTrace}");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Verification failed: ${ex.message}')),
+                      );
+                    },
+                    codeSent: (String verificationId, int? resendToken) {
+                      print("[DEBUG] 📩 OTP sent. Verification ID: $verificationId, ResendToken: $resendToken");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OtpScreen(verificationId: verificationId),
+                        ),
+                      );
+                    },
+                    codeAutoRetrievalTimeout: (String verificationId) {
+                      print("[DEBUG] ⏰ Auto-retrieval timeout. Verification ID: $verificationId");
+                    },
+                  );
+                  print("[DEBUG] verifyPhoneNumber call completed");
+                },
+                child: Text("Send OTP"),
+              ),
               Divider(height: 50, thickness: 2),
               ElevatedButton(
                 onPressed: () async {
